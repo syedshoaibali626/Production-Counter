@@ -1,0 +1,40 @@
+
+
+int sensorPin = A0;    
+int ledPin = 13;      
+int sensorValue = 0, counter=0, count_out=12, flag=0, reset_out=13;  // variable to store the value coming from the sensor
+void setup() {
+   Serial.begin(115200);
+  delay(100);
+  pinMode(count_out, OUTPUT);
+  pinMode(reset_out, OUTPUT);
+   digitalWrite(count_out,LOW);
+    digitalWrite(reset_out,LOW);
+  
+}
+
+void loop() {
+
+  sensorValue = analogRead(sensorPin);
+  Serial.print("SENSOR= ");
+  Serial.println(sensorValue);
+  if ((sensorValue>700))
+  { Serial.println("Signal is High");
+   
+  }
+  else if(sensorValue<250)
+  {
+   
+   counter= counter+1;
+    if(counter>15)
+    {
+      counter=1;
+       digitalWrite(reset_out,HIGH);
+      delay(250);
+      digitalWrite(reset_out,LOW);
+     
+    }
+   Serial.print("Count = "); Serial.println(counter);
+     
+  }
+}
